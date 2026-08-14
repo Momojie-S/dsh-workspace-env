@@ -59,6 +59,32 @@ export function parseDotEnv(filePath: string): Record<string, string> {
   return env
 }
 
+/**
+ * 展开 .env 值中的 ${VAR} 引用（dotenv-expand 风格）。
+ *
+ * lookup 来源（优先级从高到低）:
+ *  1. 同文件中更早定义、已展开的变量
+ *  2. 父环境 parent（即将被覆盖的完整子进程 env：系统变量 + DSH 注入）
+ *
+ * 未定义的引用展开为空串。只支持 ${VAR} 形式（边界明确），
+ * 不做 $VAR 简写与转义。典型用法: PATH 前置追加 `PATH=D:\tools;${PATH}`。
+ */
+export function expandDotEnv(
+  env: Record<string, string>,
+  parent: Record<string, string>,
+): Record<string, string> {
+  const lookup: Record<string, string> = { ...parent }
+  const result: Record<string, string> = {}
+  const ref = /\$\{([A-Za-z_][A-Za-z0-9_]*)\}/g
+  for (const [key, value] of Object.entries(env)) {
+    const expanded = value.replace(ref, (_m, name) =>
+      Object.hasOwn(lookup, name) ? lookup[name] : '')
+    result[key] = expanded
+    lookup[key] = expanded
+  }
+  return result
+}
+
 export const name = 'workspace-env'
 export const inject = ['shell']
 
@@ -73,7 +99,8 @@ export function apply(ctx: any) {
     const workspaceEnv = parseDotEnv(join(spec.workdir, '.env'))
 
     if (Object.keys(workspaceEnv).length > 0) {
-      result.env = { ...result.env, ...workspaceEnv }
+      const expanded = expandDotEnv(workspaceEnv, result.env)
+      result.env = { ...result.env, ...expanded }
     }
 
     return result
