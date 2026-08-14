@@ -1,0 +1,6 @@
+# @momojie-s/dsh-workspace-env 组合包 patch 层：被 profile bundles 列表引用时应用。
+# 行 name 用包名（非 file:// URL），由 Node 模块解析到已安装的包。
+- insert:
+    - id: workspace-env
+      name: '@momojie-s/dsh-workspace-env'
+      disabled: !!js process.platform !== 'win32'

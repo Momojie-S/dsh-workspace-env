@@ -1,5 +1,5 @@
 {
-  "name": "dsh-workspace-env",
+  "name": "@momojie-s/dsh-workspace-env",
   "version": "0.1.0",
   "description": "DSH 插件: pwsh executor 增强，从 workspace .env 注入环境变量到子进程",
   "type": "module",
@@ -13,16 +13,20 @@
     "./package.json": "./package.json"
   },
   "files": [
-    "lib"
+    "lib",
+    "cordis.patch.yml"
   ],
   "license": "MIT",
   "scripts": {
     "build": "tsc",
     "build:watch": "tsc --watch",
+    "prepare": "npm run build",
     "clean": "node -e \"require('fs').rmSync('lib',{recursive:true,force:true})\""
   },
-  "peerDependencies": {
-    "@deepseek-ai/dsh-pwsh-sandbox": "^0.1.0-rc.6"
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
   },
   "devDependencies": {
     "@types/node": "^22.20.1",
