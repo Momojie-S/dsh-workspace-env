@@ -1,0 +1,31 @@
+{
+  "name": "dsh-workspace-env",
+  "version": "0.1.0",
+  "description": "DSH 插件: pwsh executor 增强，从 workspace .env 注入环境变量到子进程",
+  "type": "module",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./lib/index.d.ts",
+      "default": "./lib/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "lib"
+  ],
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc",
+    "build:watch": "tsc --watch",
+    "clean": "node -e \"require('fs').rmSync('lib',{recursive:true,force:true})\""
+  },
+  "peerDependencies": {
+    "@deepseek-ai/dsh-pwsh-sandbox": "^0.1.0-rc.6"
+  },
+  "devDependencies": {
+    "@types/node": "^22.20.1",
+    "typescript": "^5.6.0"
+  }
+}

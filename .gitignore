@@ -1,0 +1,8 @@
+node_modules
+lib
+
+node_modules/
+lib/
+dist-dev-*/
+# dsh workspace-env（本地凭据）
+.env
