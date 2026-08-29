@@ -75,4 +75,4 @@ pwsh: echo $env:WS_ENV_TEST
 
 ---
 
-设计文档见 [docs/design/overview.md](docs/design/overview.md)；跨插件开发方法论见合集仓库 `docs/usage/dsh-plugin-development.md`。
+设计文档见 [docs/design/overview.md](docs/design/overview.md)；跨插件开发方法论见合集仓库 `docs/development-guide/dsh-plugin-development.md`。
