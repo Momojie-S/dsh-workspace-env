@@ -6,7 +6,7 @@ DSH 插件：`pwsh` 工具每次调用时，自动把当前 workspace 目录下�
 
 ## 环境要求
 
-- DSH `>= 0.1.0-rc.6`（已验证至 `0.1.1-rc.2`。依赖 shell 服务的 `spawnSpec` 内部方法，升级 DSH 后建议重跑验证）
+- DSH `>= 0.1.0-rc.6`（已验证至 `0.1.5-rc.1`：`.env` 注入实测正常。依赖 shell 服务的 `spawnSpec` 内部方法，升级 DSH 后建议重跑验证）
 - Windows pwsh（bash 链路未覆盖）
 
 ## 用法
